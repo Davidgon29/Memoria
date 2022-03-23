@@ -1,23 +1,16 @@
-"""Memory, puzzle game of number pairs.
-
-Exercises:
-
-1. Count and print how many taps occur.
-2. Decrease the number of tiles to a 4x4 grid.
-3. Detect when all tiles are revealed.
-4. Center single-digit tile.
-5. Use letters instead of tiles.
-"""
-
 from random import *
 from turtle import *
-
 from freegames import path
 
 car = path('car.gif')
 tiles = list(range(32)) * 2
 state = {'mark': None}
 hide = [True] * 64
+
+taps = 0 # contador de numero de taps
+
+matches = 0 # contador de las parejas encontradas
+
 
 
 def square(x, y):
@@ -47,6 +40,8 @@ def tap(x, y):
     """Update mark and hidden tiles based on tap."""
     spot = index(x, y)
     mark = state['mark']
+    global taps
+    taps += 1 # Empieza a contar los taps
 
     if mark is None or mark == spot or tiles[mark] != tiles[spot]:
         state['mark'] = spot
@@ -54,6 +49,8 @@ def tap(x, y):
         hide[spot] = False
         hide[mark] = False
         state['mark'] = None
+        global matches
+        matches += 1 # Empieza a contar las parejas encontradas
 
 
 def draw():
@@ -77,6 +74,15 @@ def draw():
         color('black')
         write(tiles[mark], font=('Arial', 30, 'normal'))
 
+    goto(0,210) # contando contador de taps que se mostrara en pantalla
+    write (taps,font=("Arial",20)) # formato en el que se mostrara taps
+
+    if matches == 32: # comparara todas las parejas encontradas con el total de parejas
+        up()
+        goto(0, 0)
+        color('green')
+        write("VICTORIA ",  align="center", font=("Arial", 20, "bold")) # Cuando se encuentran todas las parejas, 
+                                                                        # muestra un mensaje de victoria
     update()
     ontimer(draw, 100)
 
