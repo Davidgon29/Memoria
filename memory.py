@@ -70,9 +70,11 @@ def draw():
     if mark is not None and hide[mark]:
         x, y = xy(mark)
         up()
-        goto(x + 2, y)
-        color('black')
-        write(tiles[mark], font=('Arial', 30, 'normal'))
+        #Comenzando en x + 26.8 y y + 1, queda centrado
+        goto(x + 26.8, y + 1) 
+        color('blue')
+        #Sin importar dónde empiece se centra, para que el número de dígitos no sea problema
+        write(tiles[mark], align = "center", font=('Arial', 30, 'normal')) 
 
     goto(0,210) # contando contador de taps que se mostrara en pantalla
     write (taps,font=("Arial",20)) # formato en el que se mostrara taps
