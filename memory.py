@@ -72,7 +72,10 @@ def draw():
         up()
         #Comenzando en x + 26.8 y y + 1, queda centrado
         goto(x + 26.8, y + 1) 
-        color('blue')
+        #El color se establece dependiento del número del tile que se muestre
+        #En RGB se multiplica el valor por una constante para así obtener un color distinto en cada caso
+        #En el rojo no se le resta a 255 por la falta de visibilidad
+        color(tiles[mark]*5, 255-tiles[mark]*4, 255-tiles[mark]*4)
         #Sin importar dónde empiece se centra, para que el número de dígitos no sea problema
         write(tiles[mark], align = "center", font=('Arial', 30, 'normal')) 
 
@@ -91,6 +94,7 @@ def draw():
 
 shuffle(tiles)
 setup(420, 420, 370, 0)
+colormode(255) #Especificar que se están haciendo modificaciones en RGB
 addshape(car)
 hideturtle()
 tracer(False)
